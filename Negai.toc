@@ -1,4 +1,4 @@
-## Interface: 40300
+## Interface: 80000
 ## Title: Negai
 ## Notes: Various UI Fixes
 ## Author: Soulsbane
