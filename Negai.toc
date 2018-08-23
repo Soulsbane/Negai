@@ -1,0 +1,9 @@
+## Interface: 40300
+## Title: Negai
+## Notes: Various UI Fixes
+## Author: Soulsbane
+## Version: 1.0.0
+##
+
+SimpleCore.lua
+Negai.lua
