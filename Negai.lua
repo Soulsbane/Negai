@@ -174,7 +174,7 @@ function Addon:HideMicroButtons()
 end
 
 function Addon:HideTalentAlert()
-    MainMenuMicroButton_SetAlertsEnabled(false)
+    MainMenuMicroButton_SetAlertsEnabled(false, " ")
 end
 
 function Addon:HideMiniMapButtons()
