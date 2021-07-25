@@ -1,15 +1,9 @@
 local AddonName, Addon = ...
 
---auto repair and sell trash when visiting a vendor
 function Addon:OnInitialize()
-	--self:RegisterEvent("MERCHANT_SHOW")
-	self:RegisterEvent("DELETE_ITEM_CONFIRM")
+	--self:RegisterEvent("DELETE_ITEM_CONFIRM")
 	self:SetupCVars()
-	self:MoveChatTabs()
-	--self:HideMicroButtons()
-	self:HideMiniMapButtons()
     self:HideTalentAlert()
-	self:StartTimer(3)
 end
 
 function Addon:HideOrderHallCommandBar()
@@ -20,50 +14,17 @@ function Addon:HideOrderHallCommandBar()
 end
 
 function Addon:HideTalkingHead()
-	--TalkingHeadFrame:SetScript("OnShow", StoreMicroButton.Hide)
-	--TalkingHeadFrame.Show = function() end
-	TalkingHeadFrame:Hide()
+	hooksecurefunc("TalkingHeadFrame_PlayCurrent", function()
+		TalkingHeadFrame_CloseImmediately
+	end)
 end
 
 function Addon:OnAddonLoaded(addon)
-	if addon == "Blizzard_TalkingHeadUI" then
-		print("Hiding TalkingHeadFrame")
-		hooksecurefunc("TalkingHeadFrame_PlayCurrent", function()
-			TalkingHeadFrame:Hide()
-		end)
-	end
-	--self:HideTalkingHead()
+	self:HideTalkingHead()
 
 	if addon == "Blizzard_OrderHallUI" then
 		print("Hiding OrderHallCommandBar")
 		self:HideOrderHallCommandBar()
-	end
-
-	--[[ if addon == "MountSpy" then
-		MountSpy_MainFrame:Hide()
-	end]]
-end
-
-function Addon:MERCHANT_SHOW()
-	if CanMerchantRepair() then
-		--INFO: Auto repair items
-		local repairAllCost, canRepair = GetRepairAllCost()
-
-		if canRepair then
-			RepairAllItems()
-		end
-
-		--INFO: Sell trash items
-		for bag=0,4 do
-			for slot=0,GetContainerNumSlots(bag) do
-				local link = GetContainerItemLink(bag, slot)
-
-				if link and select(3, GetItemInfo(link)) == 0 then
-					ShowMerchantSellCursor(1)
-					UseContainerItem(bag, slot)
-				end
-			end
-		end
 	end
 end
 
@@ -143,49 +104,6 @@ function Addon:SetupCVars()
 		end
 end
 
--- INFO: This puts the chat tabs on the bottom of the chat frame
-function Addon:MoveChatTabs()
-	GENERAL_CHAT_DOCK:ClearAllPoints()
-	GENERAL_CHAT_DOCK:SetPoint("TOPLEFT", ChatFrame1, "BOTTOMLEFT", 0, -1)
-	GENERAL_CHAT_DOCK:SetWidth(ChatFrame1:GetWidth())
-	hooksecurefunc("FCF_SetTabPosition", function(chatFrame, x)
-
-	local chatTab = _G[chatFrame:GetName().."Tab"];
-	chatTab:ClearAllPoints();
-	chatTab:SetPoint("BOTTOMLEFT", chatFrame:GetName().."Background", "TOPLEFT", x+2, -179)
-	end)
-
-end
-
-function Addon:HideMicroButtons()
-	for _, button in ipairs(MICRO_BUTTONS) do
-		_G[button]:Hide()
-	end
-
-	-- INFO: Ensures the store button stays hidden
-	StoreMicroButton:SetScript("OnShow", StoreMicroButton.Hide)
-	StoreMicroButton.Show = function() end
-	StoreMicroButton:Hide()
-
-	-- INFO: Fixes error AchievementMicroButton_Update a nil value
-	if not AchievementMicroButton_Update then
-	 AchievementMicroButton_Update = function() end
-	end
-end
-
 function Addon:HideTalentAlert()
     MainMenuMicroButton_SetAlertsEnabled(false, " ")
-end
-
-function Addon:HideMiniMapButtons()
-	GarrisonLandingPageMinimapButton:SetScript("OnShow", GarrisonLandingPageMinimapButton.Hide)
-	GarrisonLandingPageMinimapButton.Show = function() end
-	GarrisonLandingPageMinimapButton:Hide()
-end
-
-function Addon:OnTimer()
-	--lsClockInfoBar:SetScript("OnShow", lsClockInfoBar.Hide)
-	--lsClockInfoBar.Show = function() end
-	--lsClockInfoBar:Hide()
-	--MountSpy_MainFrame:Hide()
 end
