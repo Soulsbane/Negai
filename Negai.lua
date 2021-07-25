@@ -61,42 +61,8 @@ function Addon:SetupCVars()
 			'scriptErrors 1 SHOW_LUA_ERRORS',
 			'ffxGlow 0',
 
-			--'colorblindMode 1',
-			--'colorblindshader 3' --deuteranopia,
-			-- Keep this at one until wine handles multiple cores better.
-			-- timingmethod 1 is generally for systems where the cores do not synchronize.
-			-- timingmethod 2 is a higher resolution timing method and you won't hit the
-			-- cap with that.
-			--'timingMethod 0',
-
 			-- How the camera should move between saved positions (1: smooth, 2: instant).
 			'cameraViewBlendStyle 2',
-
-			-- http://forums.worldofwarcraft.com/thread.html?topicId=1778017311&sid=1&pageNo=5#96
-			-- ╔════════╤════════╤════════╤════════╤════════╤════════╤════════╤════════╗
-			-- ║ Core 8 │ Core 7 │ Core 6 │ Core 5 │ Core 4 │ Core 3 │ Core 2 │ Core 1 ║
-			-- ╠════════╪════════╪════════╪════════╪════════╪════════╪════════╪════════╣
-			-- ║  +128  │  +64   │  +32   │  +16   │   +8   │   +4   │   +2   │   +1   ║
-			-- ╚════════╧════════╧════════╧════════╧════════╧════════╧════════╧════════╝
-			--'processAffinityMask 15',
-
-			--0 tells WoW to automatically handle cache sizes. I never was particularly fond of this behavior, so I'd normally put in my own values on D3D9ex. I've found that using about 75-80% of your video card's RAM worked best. The value can modified --by putting this in the Config.wtf folder:
-			--Also note don't use less than 32 or greater than 2047. DX9 only.
-			--'gxTextureCacheSize 1024',
-			--[['gxApi d3d9',
-			'gxFixLag 1',
-			'gxCursor 1',
-			'gxWindow 1',]]
-
-			--Enable better tab targeting.
-			--'TargetNearestUseOld 0',
-
-			'NameplatePersonalShowAlways 0',
-			'NameplatePersonalShowInCombat 0',
-			'NameplatePersonalShowWithTarget 0',
-			'nameplateMaxDistance 40',
-			'namePlateMinScale 1',
-			'namePlateMaxScale 1',
 			'worldPreloadNonCritical 0',
 		}
 		do
