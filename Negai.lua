@@ -15,16 +15,19 @@ end
 
 function Addon:HideTalkingHead()
 	hooksecurefunc("TalkingHeadFrame_PlayCurrent", function()
-		TalkingHeadFrame_CloseImmediately
+		TalkingHeadFrame_CloseImmediately()
 	end)
+
 end
 
 function Addon:OnAddonLoaded(addon)
-	self:HideTalkingHead()
-
 	if addon == "Blizzard_OrderHallUI" then
 		print("Hiding OrderHallCommandBar")
 		self:HideOrderHallCommandBar()
+	end
+
+	if addon == "Blizzard_TalkingHeadUI" then
+		self:HideTalkingHead()
 	end
 end
 
